@@ -1,0 +1,16 @@
+{% extends 'book/book_base.html'%}
+
+{%block content%}
+  <h1>
+    {% if not form.instance.pk %}
+      create Book
+    {% else %}
+      Update Book
+    {% endif %}
+  </h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="submit">
+  </form>
+{%endblock content%}
