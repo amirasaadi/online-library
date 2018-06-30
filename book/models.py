@@ -57,7 +57,10 @@ class Copy(models.Model):
     borrowers = models.ManyToManyField(User, through='Loan', related_name='a')
     reservers = models.ManyToManyField(User, through='Reservation', related_name='b')
 
-    book = models.OneToOneField(Book, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{}- {}'.format(self.id,self.book)
 
 
 class Loan(models.Model):
@@ -78,3 +81,6 @@ class Reservation(models.Model):
 
     # initial
     date_reserved = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '{} - {} - {}'.format(self.person,self.book,self.date_reserved)

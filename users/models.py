@@ -16,7 +16,7 @@ class Profile(models.Model):
     number_of_donated_books = models.IntegerField(null=True,blank=True)
 
     # Profile
-    image = models.ImageField(blank=True)
+    image = models.ImageField(blank=True,upload_to='profile_image')
 
     def __str__(self):
         return self.student_id

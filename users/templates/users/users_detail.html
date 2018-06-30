@@ -9,5 +9,6 @@
     <p>username   : {{ user.username }}</p>
     <p>student id : {{ user.profile.student_id }}</p>
     <p>email      : {{ user.email }}</p>
+    <p>profile image : <img src="{{ user.profile.image.url }}" width="240"></p>
 
 {% endblock content%}

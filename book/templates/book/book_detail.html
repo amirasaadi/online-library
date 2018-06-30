@@ -22,8 +22,8 @@
     <a href="{%url 'book:delete_book' pk=book.pk%}">Delete</a>
   </p>
   <hr>
-{#  <p>#}
+  <p>
 {#    <a href="{%url 'book:borrow_book' pk=book.pk%}">Borrow</a>#}
-{#    <a href="{%url 'book:reserve_book' pk=book.pk%}">Reserve</a>#}
-{#  </p>#}
+    <a href="{%url 'book:reserve_book' pk=book.pk%}">Reserve</a>
+  </p>
 {% endblock content%}
