@@ -72,6 +72,8 @@ class Loan(models.Model):
     # initial
     date_due = models.DateField(auto_now_add=True)
 
+    def __str__(self):
+        return '{} - {} - {}'.format(self.person,self.book,self.date_due)
 
 class Reservation(models.Model):
 

@@ -29,21 +29,19 @@ class BookUpdateView(LoginRequiredMixin,generic.UpdateView):
     model = book_models.Book
 
 
-class BookReserveView(LoginRequiredMixin,generic.DetailView):
+class BookReserveView(LoginRequiredMixin,generic.View):
 
-    model = book_models.Reservation
-    # def get(self, request,pk):
-    #     # <view logic>
-    #     book = book_models.Copy.objects.get(pk=pk)
-    #     reserve_obj = book_models.Reservation(book=book, person=self.request.user)
-    #     reserve_obj.save()
-    #     return HttpResponse('you are : '+str(reserve_obj))
+    def get(self,request,pk,*args,**kwargs):
+        book = book_models.Copy.objects.get(pk=pk)
+        book_models.Reservation(person=request.user,book=book).save()
+        return HttpResponse('successfully reserved for you')
 
-# class BookBorrowView(LoginRequiredMixin,generic.ListView):
-#     pass
+class BookLoanView(LoginRequiredMixin,generic.View):
 
-def BookReserveView(request,pk):
-    book = book_models.Copy.objects.get(pk=pk)
-    reserve_obj = book_models.Reservation(book=book, person=request.user)
-    reserve_obj.save()
-    return HttpResponse('you are : '+str(reserve_obj))
+    def get(self,request,pk,*args,**kwargs):
+        book = book_models.Copy.objects.get(pk=pk)
+        book_models.Loan(person=request.user,book=book).save()
+        return HttpResponse('Go and get your book.')
+
+class LoanListView(LoginRequiredMixin,generic.ListView):
+    model = book_models.Loan

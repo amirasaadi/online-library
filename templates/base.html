@@ -6,6 +6,11 @@
 </head>
 <body>
   <main>
+
+      {% if user.is_superuser %}
+            <p><a href="{% url 'book:list_loan' %}">list of loans</a></p>
+      {% endif %}
+
     {% block content %}
     {% endblock %}
   </main>

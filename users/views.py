@@ -15,6 +15,6 @@ class UserDetailView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'users/users_detail.html'
 
 
-# class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
-#     fields = '__all__'
-#     model = user_models.User
+class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
+    fields = '__all__'
+    model = user_models.User
