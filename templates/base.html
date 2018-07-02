@@ -8,7 +8,8 @@
   <main>
 
       {% if user.is_superuser %}
-            <p><a href="{% url 'book:list_loan' %}">list of loans</a></p>
+          <p><a href="{% url 'book:list_loan' %}">list of loans</a></p>
+          <p><a href="{% url 'book:books_loned_between_two_times' %}">books loned between two times</a></p>
       {% endif %}
 
     {% block content %}
