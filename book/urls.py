@@ -21,5 +21,10 @@ urlpatterns = [
         name='books_loned_between_two_times'
     ),
 
+    path(
+        'students_who_do_not_loan_any/',
+        views.Students_Who_Do_Not_Loan_Any.as_view(),
+        name='students_who_do_not_loan_any'
+    ),
 
 ]

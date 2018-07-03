@@ -1,12 +1,13 @@
 from django.http import HttpResponse
 from django.views import generic
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 
 from book import models as book_models
 from book import forms as book_forms
 
-from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth.models import User
 
 
 class BookListView(LoginRequiredMixin,generic.ListView):
@@ -65,3 +66,16 @@ class Books_Loned_Between_Two_Times_View(LoginRequiredMixin,generic.FormView):
         # return super().form_valid(form)
         # to do its better to change it to render
         return HttpResponse(books)
+
+
+class Students_Who_Do_Not_Loan_Any(LoginRequiredMixin,generic.View):
+    def get(self,request):
+        loaner = book_models.Loan.objects.all()
+        lis =[]
+        for item in loaner:
+            lis.append(item.person)
+        result = lis
+        result = User.objects.exclude(username__in=lis)
+        context ={'students':result}
+        # return HttpResponse(result)
+        return render(request,'book/students_who_do_not_loan_any.html',context=context)
