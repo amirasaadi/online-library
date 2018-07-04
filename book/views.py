@@ -79,3 +79,15 @@ class Students_Who_Do_Not_Loan_Any(LoginRequiredMixin,generic.View):
         context ={'students':result}
         # return HttpResponse(result)
         return render(request,'book/students_who_do_not_loan_any.html',context=context)
+
+
+class Authors_Loaned_By_Student(LoginRequiredMixin,generic.FormView):
+    template_name = 'book/authors_loaned_by_student.html'
+    success_url = '/'
+    form_class = book_forms.Authors_Loaned_By_Student_Form
+
+    def form_valid(self, form):
+        username = form.cleaned_data['username']
+        # result = book_models.Loan.objects.filter(person__a__borrowers=)
+        return HttpResponse('r')
+

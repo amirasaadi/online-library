@@ -129,3 +129,13 @@ LOGOUT_REDIRECT_URL = '/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'test15/media')
+
+# email setting
+# file
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# console
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+EMAIL_HOST = 'localhost'# 127.0.0.1
+EMAIL_PORT = 1025
+DEFAULT_FROM_EMAIL = 'testing@example.com'

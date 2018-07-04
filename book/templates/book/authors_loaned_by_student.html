@@ -1,0 +1,12 @@
+{% extends 'book/book_base.html'%}
+
+{%block content%}
+  <h1>
+    authors loned by students
+  </h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="search">
+  </form>
+{%endblock content%}

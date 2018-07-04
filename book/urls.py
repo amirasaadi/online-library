@@ -27,4 +27,9 @@ urlpatterns = [
         name='students_who_do_not_loan_any'
     ),
 
+    path(
+        'authors_loaned_by_student/',
+        views.Authors_Loaned_By_Student.as_view(),
+        name='authors_loaned_by_student'
+    ),
 ]

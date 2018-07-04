@@ -1,7 +1,9 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-
+from django.db.models.signals import post_save,post_delete
+from django.dispatch import receiver
+from django.core.mail import send_mail
 
 class Publisher(models.Model):
     name = models.CharField(max_length=300)
@@ -86,3 +88,37 @@ class Reservation(models.Model):
 
     def __str__(self):
         return '{} - {} - {}'.format(self.person,self.book,self.date_reserved)
+
+
+@receiver(post_save, sender=Book)
+def send_newbook_email(sender,instance,created,**kwargs):
+    if created:
+        subject = 'New book aded to library'
+        message = 'Hi {name}!\n\tWe adad this book to our library, you can Borrow or Reserve it!\n\t{book}'.format(name='ali',book=instance)
+        # users = list(User.objects.all())
+        # recipient_list =[]
+        # for user in users:
+        #     recipient_list.append(user.email)
+        recipient_list = ["paul@polo.com"]
+        from_email = ['book@book.ir']
+        # send_mail(subject,message,recipient_list)
+        send_mail(subject=subject,message=message,from_email=from_email,recipient_list=recipient_list)
+
+@receiver(post_delete,sender=Book)
+def send_bookdeleted_email(sender,instance,**kwargs):
+    subject = 'Some book deleted'
+    message = 'Hi {name}!\n\tWe removed this book from our library, you can\'t Borrow or Reserve it any more!\n\t{book}'.format(name='ali', book=instance)
+    # users = list(User.objects.all())
+    # recipient_list = []
+    # for user in users:
+    #     recipient_list.append(user.email)
+    # names_list =[]
+    # for user in users:
+    #     names_list = user.first_name
+    recipient_list = ["paul@polo.com"]
+    from_email = ['book@book.ir']
+    # for i in range(len(users)):
+    #     message = 'Hi {name}!\n\tWe removed this book from our library, you can\'t Borrow or Reserve it any more!\n\t{book}'.format(
+    #         name=names_list[i], book=instance)
+    #     send_mail(subject=subject, message=message, from_email=from_email, recipient_list=recipient_list[i])
+    send_mail(subject=subject, message=message, from_email=from_email, recipient_list=recipient_list)
