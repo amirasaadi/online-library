@@ -3,14 +3,32 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-    <p><a href="{% url 'users:detail_user' %}">profile</a></p>
-    <p><a href="{% url 'book:list_book' %}">books</a></p>
-  <p><a href="{% url 'logout' %}">logout</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a> |
-  <a href="{% url 'users:signup' %}">signup</a>
-{% endif %}
+
+    {% if user.is_authenticated %}
+
+  <ol>
+  list of all books
+    {%for book in books%}
+    <li>
+      <a href="{{book.id}}">{{book.name}}</a>
+        {% if NO == 0 %}
+            It's not avilable
+        {% else %}
+            {{ NO }}
+        {% endif %}
+    </li>
+    {%endfor%}
+  </ol>
+
+        <hr>
+        Subjects:
+        <ul>
+            <li><a href="{% url 'book:subject_book' subject='poem' %}">poem</a></li>
+            <li><a href="{% url 'book:subject_book' subject='story' %}">story</a></li>
+            <li><a href="{% url 'book:subject_book' subject='history' %}">history</a></li>
+            <li><a href="{% url 'book:subject_book' subject='magazine'%}">magazine</a></li>
+            <li><a href="{% url 'book:subject_book' subject='biography'%}">biography</a></li>
+        </ul>
+    {% endif %}
+
 {% endblock %}

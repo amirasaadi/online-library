@@ -1,0 +1,10 @@
+{% extends  'book/book_base.html' %}
+
+{% block content_book %}
+    <ol>
+    {% for book in  context %}
+        <li>{{ book.name }}</li>
+        <br>
+    {% endfor %}
+    </ol>
+{% endblock content_book %}

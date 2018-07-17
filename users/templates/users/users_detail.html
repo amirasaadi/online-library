@@ -1,6 +1,6 @@
 {% extends 'users/users_base.html'%}
 
-{% block content %}
+{% block content_users %}
 
   <h1>
     User Profile
@@ -12,4 +12,4 @@
     <p>profile image : <img src="{{ user.profile.image.url }}" width="240"></p>
 
     <a href="{% url 'users:update_user' %}">Edit profile</a>
-{% endblock content%}
+{% endblock content_users%}

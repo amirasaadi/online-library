@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body bgcolor="#99FF99">
-    <a href="{%url 'book:list_book'%}">list of books</a>
-    <a href="{%url 'book:create_book'%}">new book</a>
-    {% block content %}
-    {% endblock content %}
-  </body>
-</html>
+{% extends 'base.html'%}
+{% block content %}
+    <a href="{%url 'book:list_copy'%}">list of books</a>
+    {% block content_book%}
+
+    {% endblock content_book %}
+{% endblock content %}

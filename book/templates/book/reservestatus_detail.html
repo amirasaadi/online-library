@@ -1,6 +1,6 @@
 {% extends 'book/book_base.html'%}
 
-{% block content %}
+{% block content_book %}
   <h1>
     Book reserve status
   </h1>
@@ -9,4 +9,4 @@
     book : {{reservestatus.book.name}}
     Date : {{reservestatus.date_time_reserved}}
   </p>
-{% endblock content%}
+{% endblock content_book%}

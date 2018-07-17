@@ -32,13 +32,25 @@ class Book(models.Model):
     name = models.CharField(max_length=255)
     publish_year = models.DateField()
     ISBN = models.BigIntegerField()
-    subject = (
-        ('p', 'Poem'),
-        ('s', 'Story'),
-        ('h', 'History'),
-        ('m', 'Magazine'),
-        ('b', 'Biography'),
+
+    POEM = 'P'
+    STORY = 'S'
+    HISTORY = 'H'
+    MAGAZINE = 'M'
+    BIOGRAPHU = 'B'
+    subject_choices = (
+        (POEM, 'Poem'),
+        (STORY, 'Story'),
+        (HISTORY, 'History'),
+        (MAGAZINE, 'Magazine'),
+        (BIOGRAPHU,'Biography'),
     )
+    subject = models.CharField(
+        max_length=1,
+        choices=subject_choices,
+        default=STORY,
+    )
+
     translators = models.ManyToManyField(Translator, blank=True)
     authors = models.ManyToManyField(Author)
     publishers = models.ForeignKey(Publisher, on_delete=models.CASCADE)
@@ -93,32 +105,29 @@ class Reservation(models.Model):
 @receiver(post_save, sender=Book)
 def send_newbook_email(sender,instance,created,**kwargs):
     if created:
+        messages = []
         subject = 'New book aded to library'
-        message = 'Hi {name}!\n\tWe adad this book to our library, you can Borrow or Reserve it!\n\t{book}'.format(name='ali',book=instance)
-        # users = list(User.objects.all())
-        # recipient_list =[]
-        # for user in users:
-        #     recipient_list.append(user.email)
-        recipient_list = ["paul@polo.com"]
+        message = """Hi dear students!
+                    \n\tWe adad this book to our library, you can Borrow or Reserve it!
+                    \n\t{book}""".format(book=instance)
+
+        emails = User.objects.values_list('email', flat=True)
+        recipient_list = list(emails)
+
         from_email = ['book@book.ir']
-        # send_mail(subject,message,recipient_list)
+
         send_mail(subject=subject,message=message,from_email=from_email,recipient_list=recipient_list)
 
 @receiver(post_delete,sender=Book)
 def send_bookdeleted_email(sender,instance,**kwargs):
     subject = 'Some book deleted'
-    message = 'Hi {name}!\n\tWe removed this book from our library, you can\'t Borrow or Reserve it any more!\n\t{book}'.format(name='ali', book=instance)
-    # users = list(User.objects.all())
-    # recipient_list = []
-    # for user in users:
-    #     recipient_list.append(user.email)
-    # names_list =[]
-    # for user in users:
-    #     names_list = user.first_name
-    recipient_list = ["paul@polo.com"]
+    message = """Hi dear students!
+                \n\tWe removed this book from our library, you can\'t Borrow or Reserve it any more!
+                \n\t{book}""".format(book=instance)
+
+    emails = User.objects.values_list('email', flat=True)
+    recipient_list = list(emails)
+
     from_email = ['book@book.ir']
-    # for i in range(len(users)):
-    #     message = 'Hi {name}!\n\tWe removed this book from our library, you can\'t Borrow or Reserve it any more!\n\t{book}'.format(
-    #         name=names_list[i], book=instance)
-    #     send_mail(subject=subject, message=message, from_email=from_email, recipient_list=recipient_list[i])
+
     send_mail(subject=subject, message=message, from_email=from_email, recipient_list=recipient_list)

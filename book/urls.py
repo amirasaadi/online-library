@@ -4,16 +4,15 @@ from book import views
 app_name = 'book'
 
 urlpatterns = [
-    path('create/',views.BookCreateView.as_view(),name='create_book'),
-    path('<int:pk>/',views.BookDetailView.as_view(),name='detail_book'),
-    path('update/<int:pk>/',views.BookUpdateView.as_view(),name='update_book'),
-    path('',views.BookListView.as_view(),name='list_book'),
-    path('delete/<int:pk>/',views.BookDeleteView.as_view(),name='delete_book'),
 
-    path('reserve/<int:pk>/',views.BookReserveView.as_view(),name='reserve_book'),
-    path('borrow/<int:pk>/',views.BookLoanView.as_view(),name='borrow_book'),
+    path('<int:pk>/', views.CopyDetailView.as_view(), name='detail_copy'),
 
-    path('loan/',views.LoanListView.as_view(),name='list_loan'),
+    path('',views.CopyListView.as_view(),name='list_copy'),
+
+    path('reserve/<int:pk>/', views.CopyReserveView.as_view(), name='reserve_copy'),
+    path('borrow/<int:pk>/', views.CopyLoanView.as_view(), name='borrow_copy'),
+
+    path('loans_list/',views.LoanListView.as_view(),name='list_loan'),
 
     path(
         'books_loned_between_two_times/',
@@ -32,4 +31,18 @@ urlpatterns = [
         views.Authors_Loaned_By_Student.as_view(),
         name='authors_loaned_by_student'
     ),
+
+    path(
+        'loan_near_due_date/',
+        views.Loan_Near_Due_Date.as_view(),
+        name='loan_near_due_date'
+    ),
+
+    path(
+        'students_who_borrow_books_in_special_publish_year/',
+        views.Students_Who_Borrow_Books_In_Special_Publish_Year.as_view(),
+        name='students_who_borrow_books_in_special_publish_year'
+    ),
+
+    path('subject/<slug:subject>/',views.Subject_View.as_view(),name='subject_book'),
 ]

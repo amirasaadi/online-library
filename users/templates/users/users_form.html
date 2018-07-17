@@ -1,12 +1,14 @@
-{% extends 'users/book_base.html'%}
+{% extends 'users/users_base.html'%}
 
-{%block content%}
+{%block content_users %}
   <h1>
       Update user
   </h1>
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+      {{ user_form.as_p }}
+    {{ profile_form.as_p }}
     <input type="submit" value="submit">
   </form>
-{%endblock content%}
+    <a href="{% url 'users:change_password' %}">change password</a>
+{%endblock content_users%}

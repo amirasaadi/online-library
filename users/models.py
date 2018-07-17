@@ -10,16 +10,16 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     # initial
-    student_id = models.CharField(max_length=8, unique=True, blank=False,null=True)
+    student_id = models.CharField(max_length=8, unique=True, blank=True,null=True)
 
     # formoula
-    number_of_donated_books = models.IntegerField(null=True,blank=True)
+    number_of_donated_books = models.IntegerField(default=0, null=True,blank=True)
 
     # Profile
     image = models.ImageField(blank=True,upload_to='profile_image')
 
-    def __str__(self):
-        return self.student_id
+    # def __str__(self):
+    #     return self.student_id
 
 
 @receiver(post_save, sender=User)

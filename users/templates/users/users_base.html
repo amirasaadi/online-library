@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body bgcolor="#99FF99">
-    <a href="{%url 'home'%}">Home</a>
+{% extends 'base.html'%}
+{% block content %}
+    <a href="{%url 'users:update_user'%}">Update user</a>
+    {% block content_users%}
 
-    {% block content %}
-    {% endblock content %}
-  </body>
-</html>
+    {% endblock content_users %}
+{% endblock content %}

@@ -7,15 +7,34 @@
 <body>
   <main>
 
-      {% if user.is_superuser %}
-          <p><a href="{% url 'book:list_loan' %}">list of loans</a></p>
-          <p><a href="{% url 'book:books_loned_between_two_times' %}">books loned between two times</a></p>
-          <p><a href="{% url 'book:students_who_do_not_loan_any' %}">students who do not loan any</a></p>
-          <p><a href="{% url 'book:authors_loaned_by_student' %}">authors loaned by student</a></p>
+      {% if user.is_authenticated %}
+        Hi {{ user.username }}!
+          <br>
+            <p><a href="{% url 'users:detail_user' %}">profile</a></p>
+            <p><a href="{% url 'book:list_copy' %}">books</a></p>
+            <p><a href="{% url 'logout' %}">logout</a></p>
+            <hr>
+          {% if user.is_superuser %}
+              <p><a href="{% url 'book:list_loan' %}">list of loans</a></p>
+              <p><a href="{% url 'book:books_loned_between_two_times' %}">books loned between two times</a></p>
+              <p><a href="{% url 'book:students_who_do_not_loan_any' %}">students who do not loan any</a></p>
+              <p><a href="{% url 'book:authors_loaned_by_student' %}">authors loaned by student</a></p>
+              <p><a href="{% url 'book:loan_near_due_date' %}">loan near due date</a></p>
+              <p><a href="{% url 'book:students_who_borrow_books_in_special_publish_year' %}">students who borrow books in special publish year</a></p>
+              <hr>
+          {% endif %}
+
+      {% else %}
+          <p>You are not logged in</p>
+          <a href="{% url 'login' %}">login</a> |
+          <a href="{% url 'users:signup' %}">signup</a>
+          <hr>
       {% endif %}
 
     {% block content %}
+
     {% endblock %}
+
   </main>
 </body>
 </html>

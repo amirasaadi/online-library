@@ -2,9 +2,9 @@
 
 {% block content_book %}
   <ol>
-    {%for loan in loan_list%}
+    {%for copy in copy_list%}
     <li>
-      <p>{{loan.id}}- {{loan}}</p>
+      <a href="{{copy.id}}">{{copy.book.name}}</a>
     </li>
     {%endfor%}
   </ol>

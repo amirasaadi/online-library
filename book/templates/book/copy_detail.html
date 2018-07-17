@@ -1,0 +1,25 @@
+{% extends 'book/book_base.html'%}
+
+{% block content_book %}
+  <h1>
+    book details
+  </h1>
+  <p>{{ copy.book.name }}</p>
+  <p>{{ copy.book.authors.name }}</p>
+  <h3>Authors:</h3>
+  {%for author in copy.book.authors.all%}
+    <p>{{copy.author.name}}</p>
+  {%endfor%}
+  <h3>Translators:</h3>
+  {%for translator in copy.book.translators.all%}
+    <p>{{translator.name}}</p>
+  {%endfor%}
+  <h3>Publisher:</h3>
+    <p>{{copy.book.publishers.name}}</p>
+
+  <hr>
+  <p>
+    <a href="{%url 'book:borrow_copy' pk=copy.pk%}">Borrow</a>
+    <a href="{%url 'book:reserve_copy' pk=copy.pk%}">Reserve</a>
+  </p>
+{% endblock content_book%}
