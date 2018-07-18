@@ -6,29 +6,31 @@
 
     {% if user.is_authenticated %}
 
-  <ol>
-  list of all books
-    {%for book in books%}
-    <li>
-      <a href="{{book.id}}">{{book.name}}</a>
-        {% if NO == 0 %}
-            It's not avilable
-        {% else %}
-            {{ NO }}
-        {% endif %}
-    </li>
-    {%endfor%}
-  </ol>
-
-        <hr>
-        Subjects:
-        <ul>
-            <li><a href="{% url 'book:subject_book' subject='poem' %}">poem</a></li>
-            <li><a href="{% url 'book:subject_book' subject='story' %}">story</a></li>
-            <li><a href="{% url 'book:subject_book' subject='history' %}">history</a></li>
-            <li><a href="{% url 'book:subject_book' subject='magazine'%}">magazine</a></li>
-            <li><a href="{% url 'book:subject_book' subject='biography'%}">biography</a></li>
-        </ul>
+        <ol>
+          list of all books
+            {%for book in books%}
+            <li>
+              {{book.name}}
+                -
+                {% if book.num_books == 0 %}
+                    It's not avilable
+                {% else %}
+                    {{ book.num_books }}
+                {% endif %}
+                -
+            </li>
+            {%endfor%}
+          </ol>
+    
+            <hr>
+            Subjects:
+            <ul>
+                <li><a href="{% url 'book:subject_book' subject='poem' %}">poem</a></li>
+                <li><a href="{% url 'book:subject_book' subject='story' %}">story</a></li>
+                <li><a href="{% url 'book:subject_book' subject='history' %}">history</a></li>
+                <li><a href="{% url 'book:subject_book' subject='magazine'%}">magazine</a></li>
+                <li><a href="{% url 'book:subject_book' subject='biography'%}">biography</a></li>
+            </ul>
     {% endif %}
 
 {% endblock %}

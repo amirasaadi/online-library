@@ -15,6 +15,11 @@ from django.contrib.auth.models import User
 from ratelimit.mixins import RatelimitMixin
 from book import constants
 
+
+# for number of books and avibility in homepage
+from django.db.models import Count
+
+
 class CopyListView(LoginRequiredMixin, generic.ListView, RatelimitMixin):
     ratelimit_key = 'ip'
     ratelimit_rate = '2/m'
@@ -114,8 +119,10 @@ class HomePageView( generic.TemplateView, RatelimitMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['books'] = book_models.Book.objects.all()
-        context['NO'] = book_models.Copy.objects.count()
+        # context['books'] = book_models.Book.objects.all()
+        # context['NO'] = book_models.Copy.objects.count()
+        books = book_models.Book.objects.annotate(num_books=Count('copy'))
+        context ['books'] = books
         return context
 
 
