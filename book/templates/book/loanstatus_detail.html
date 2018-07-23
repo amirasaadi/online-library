@@ -1,0 +1,15 @@
+{% extends 'book/book_base.html'%}
+
+{% block content_book %}
+  <h1>
+    Book Loan status
+  </h1>
+  <p>
+    due date : {{due}}
+      <br>
+    book : {{loanstatus.book.book.name}}
+      <br>
+    Date : {{loanstatus.date_due}}
+  </p>
+    <p><a href="{% url 'book:loan_extend' pk=loanstatus.pk %}">Extend loan</a></p>
+{% endblock content_book%}

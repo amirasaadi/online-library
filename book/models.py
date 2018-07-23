@@ -5,6 +5,9 @@ from django.db.models.signals import post_save,post_delete
 from django.dispatch import receiver
 from django.core.mail import send_mail
 
+from datetime import datetime,timedelta
+from book import constants
+
 class Publisher(models.Model):
     name = models.CharField(max_length=300)
 
@@ -65,6 +68,38 @@ class Book(models.Model):
     def __str__(self):
         return self.name
 
+    # test moving query views to here
+    def students_who_do_not_loan_any():
+        result = User.objects.exclude(id__in=Loan.objects.values('person__id'))
+        context = {'students': result}
+        return context
+
+    def books_loned_between_two_times(start_date,end_date):
+        books = Loan.objects.filter(date_due__range=[start_date, end_date])
+        # return super().form_valid(form)
+        # to do its better to change it to render
+        context = {'context': books}
+        return context
+
+    def authors_loaned_by_student(username):
+        user_loans = Loan.objects.filter(person__username__exact=username)
+        # Loan.objects.filter(person__icontain)
+        result = user_loans.values_list('book__book__authors__name', flat=True)
+        context = {'context': result}
+        return context
+
+    def loan_near_due_date():
+        context = {}
+        queryset = Loan.objects.filter(
+            date_due__lt=datetime.now().date() - timedelta(days=constants.LOAN_TIME - constants.NEAR))
+        context['context'] = queryset
+        return context
+
+    def students_who_borrow_books_in_special_publish_year(year):
+        book_published_in_year = Loan.objects.filter(book__book__publish_year__exact=year)
+        result = book_published_in_year.values_list('person__username', flat=True)
+        context = {'context': result}
+        return context
 
 class Copy(models.Model):
     # link
@@ -72,6 +107,17 @@ class Copy(models.Model):
     reservers = models.ManyToManyField(User, through='Reservation', related_name='b')
 
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
+
+    LOAN_STATUS = (
+        ('m', 'Maintenance'),
+        ('o', 'On loan'),
+        ('a', 'Available'),
+        ('r', 'Reserved'),
+    )
+
+    status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text='Book availability')
+
 
     def __str__(self):
         return '{}- {}'.format(self.id,self.book)
@@ -84,7 +130,17 @@ class Loan(models.Model):
     book = models.ForeignKey(Copy,on_delete=models.CASCADE)
 
     # initial
+    #start
     date_due = models.DateField(auto_now_add=True)
+    #end
+    due_back = models.DateField(null=True, blank=True)
+
+    def can_loan(self):
+        firstone = Reservation.objects.filter(book=self.book)[0]
+        if firstone.person == self.person:
+            return True
+        else:
+            return False
 
     def __str__(self):
         return '{} - {} - {}'.format(self.person,self.book,self.date_due)

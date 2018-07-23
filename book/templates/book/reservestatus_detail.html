@@ -5,8 +5,11 @@
     Book reserve status
   </h1>
   <p>
-    name : {{reservestatus.member}}
-    book : {{reservestatus.book.name}}
-    Date : {{reservestatus.date_time_reserved}}
+    name : {{reservestatus.person}}
+      <br>
+    book : {{reservestatus.book.book.name}}
+      <br>
+    Date : {{reservestatus.date_reserved}}
   </p>
+    <p><a href="{% url 'book:delete_reserve' pk=reservestatus.pk %}">Delete reserve</a></p>
 {% endblock content_book%}

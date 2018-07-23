@@ -1,0 +1,13 @@
+{% extends 'book/book_base.html'%}
+
+{%block content_book%}
+  <h1>
+    Delete {{ reservation }} ?
+  </h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Delete">
+      <a href="{% url 'book:list_reserve' %}">Cancel</a>
+  </form>
+{%endblock content_book%}

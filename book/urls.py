@@ -45,4 +45,16 @@ urlpatterns = [
     ),
 
     path('subject/<slug:subject>/',views.Subject_View.as_view(),name='subject_book'),
+
+    # returning book
+    path('return/',views.Return_Book.as_view(),name='return_book'),
+
+    #reserves CRUD
+    path('reserve/delete/<int:pk>/',views.Delete_Reserve_View.as_view(),name='delete_reserve'),
+    path('reserve/',views.Reserve_List_View.as_view(),name='list_reserve'),
+    path('reserve/detail/<int:pk>/',views.Reserve_Detail_View.as_view(),name='detail_reserve'),
+    #loans CRUD
+    path('loan/', views.User_Loan_List_View.as_view(), name='user_loans_list'),
+    path('loan/<int:pk>/', views.Loan_Detail_View.as_view(), name='detail_loan'),
+    path('loan/extend/<int:pk>/',views.Loan_Extend_View.as_view(),name='loan_extend'),
 ]

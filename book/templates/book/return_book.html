@@ -1,0 +1,12 @@
+{% extends 'book/book_base.html'%}
+
+{%block content_book%}
+  <h1>
+    Return Book
+  </h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="return back">
+  </form>
+{%endblock content_book%}

@@ -1,0 +1,11 @@
+{% extends 'book/book_base.html'%}
+
+{%block content_book%}
+  <h1>
+    Your reservations
+  </h1>
+    {% for reserve in rserve_list %}
+        <a href="{% url 'book:detail_reserve' pk=reserve.id%}">{{ reserve.book.book.name }}</a>
+        <br>
+    {% endfor %}
+{%endblock content_book%}
