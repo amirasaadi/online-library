@@ -278,8 +278,16 @@ class Loan_Detail_View(LoginRequiredMixin,generic.TemplateView,RatelimitMixin):
 class Loan_Extend_View(LoginRequiredMixin,generic.View,RatelimitMixin):
     def get(self,request,pk):
         loan = book_models.Loan.objects.get(pk=pk)
-        reserve = book_models.Reservation.ge
         if loan.person== self.request.user:
 
-            loan.date_due = date.today()
-        return HttpResponseRedirect(reverse_lazy('book:list_reserve'))
+            temp_loan = book_models.Loan()
+            temp_loan.person = loan.person
+            temp_loan.book = loan.book
+
+            if temp_loan.can_loan():
+                temp_loan.extend_loan(pk)
+
+            # is this neccessary
+            # temp_loan.delete()
+
+        return HttpResponseRedirect(reverse_lazy('book:user_loans_list'))

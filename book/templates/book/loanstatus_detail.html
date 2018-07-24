@@ -9,7 +9,7 @@
       <br>
     book : {{loanstatus.book.book.name}}
       <br>
-    Date : {{loanstatus.date_due}}
+    Date you brrowed : {{loanstatus.date_due}}
   </p>
     <p><a href="{% url 'book:loan_extend' pk=loanstatus.pk %}">Extend loan</a></p>
 {% endblock content_book%}

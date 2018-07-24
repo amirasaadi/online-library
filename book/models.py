@@ -5,7 +5,8 @@ from django.db.models.signals import post_save,post_delete
 from django.dispatch import receiver
 from django.core.mail import send_mail
 
-from datetime import datetime,timedelta
+from datetime import datetime,timedelta,date
+
 from book import constants
 
 class Publisher(models.Model):
@@ -136,11 +137,18 @@ class Loan(models.Model):
     due_back = models.DateField(null=True, blank=True)
 
     def can_loan(self):
-        firstone = Reservation.objects.filter(book=self.book)[0]
-        if firstone.person == self.person:
-            return True
+        firstone = Reservation.objects.filter(book=self.book)
+        if firstone:
+            if firstone[0].person == self.person:
+                return True
+            else:
+                return False
         else:
-            return False
+            return True
+
+    def extend_loan(self,pk):
+        # self.date_due = date.today()
+        Loan.objects.filter(pk=pk).update(date_due=date.today())
 
     def __str__(self):
         return '{} - {} - {}'.format(self.person,self.book,self.date_due)
