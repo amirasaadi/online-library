@@ -60,4 +60,10 @@ urlpatterns = [
 
     #excel output
     path('export/',views.Export_Excel_View.as_view(),name='export_excel'),
+
+    #reserve to return back
+    path('reserve-to-return-back',views.Reserve_To_Return_Back.as_view(),name='reserve_to_return_back'),
+
+    #reserve to loan
+    path('reserve-to-loan',views.Reserve_To_Loan.as_view(),name='reserve_to_loan'),
 ]

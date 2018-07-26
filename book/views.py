@@ -26,6 +26,9 @@ from openpyxl import Workbook
 
 from django.shortcuts import redirect
 
+# paginator
+from django.core.paginator import Paginator
+
 
 class CopyListView(LoginRequiredMixin, generic.ListView, RatelimitMixin):
     ratelimit_key = 'ip'
@@ -138,7 +141,12 @@ class HomePageView( generic.TemplateView, RatelimitMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         books = book_models.Book.objects.annotate(num_books=Count('copy'))
-        context ['books'] = books
+        paginator = Paginator(books,10)
+
+        page = self.request.GET.get('page')
+
+        # context ['books'] = books
+        context['books'] = paginator.get_page(page)
         return context
 
 
@@ -198,9 +206,13 @@ class Subject_View(LoginRequiredMixin,generic.View,RatelimitMixin):
             key = 'H'
         elif subject == 'biography':
             key='B'
+
         result = book_models.Book.objects.filter(subject__exact=key)
-        context = {'context': result}
-        return render(self.request,template_name='book/book_subject.html',context=context)
+        paginator = Paginator(result, 10)
+        page = request.GET.get('page')
+        # context = {'context': result}
+        context = paginator.get_page(page)
+        return render(self.request,template_name='book/book_subject.html',context={'context':context})
 
 
 class Return_Book(LoginRequiredMixin,generic.FormView,RatelimitMixin):
@@ -355,3 +367,9 @@ class Export_Excel_View(LoginRequiredMixin,generic.View,RatelimitMixin):
         return redirect('/')
 
 
+class Reserve_To_Return_Back(LoginRequiredMixin,generic.View,RatelimitMixin):
+    pass
+
+
+class Reserve_To_Loan(LoginRequiredMixin,generic.View,RatelimitMixin):
+    pass

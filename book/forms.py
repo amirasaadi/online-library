@@ -17,3 +17,7 @@ class Students_Who_Borrow_Books_In_Special_Publish_Year_Form(forms.Form):
 
 class Return_Book_Form(forms.Form):
     copy_id = forms.IntegerField()
+
+
+class Get_Reserve_ID_Form(forms.Form):
+    reserve_id = forms.IntegerField()
