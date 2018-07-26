@@ -16,5 +16,4 @@ class Students_Who_Borrow_Books_In_Special_Publish_Year_Form(forms.Form):
 
 
 class Return_Book_Form(forms.Form):
-    username = forms.CharField()
     copy_id = forms.IntegerField()

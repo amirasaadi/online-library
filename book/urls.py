@@ -57,4 +57,7 @@ urlpatterns = [
     path('loan/', views.User_Loan_List_View.as_view(), name='user_loans_list'),
     path('loan/<int:pk>/', views.Loan_Detail_View.as_view(), name='detail_loan'),
     path('loan/extend/<int:pk>/',views.Loan_Extend_View.as_view(),name='loan_extend'),
+
+    #excel output
+    path('export/',views.Export_Excel_View.as_view(),name='export_excel'),
 ]

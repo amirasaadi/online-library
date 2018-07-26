@@ -1,6 +1,7 @@
 {% extends 'book/book_base.html'%}
 
 {%block content_book%}
+    <h1>{{ header }}</h1>
     <ol>
         {% for item in context %}
             <li>{{ item }}</li>

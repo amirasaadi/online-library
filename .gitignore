@@ -120,3 +120,10 @@ pip-selfcheck.json
 
 ##email##
 sent_emails/
+
+
+# Excel temporary
+~$*.xls*.xlsx*
+
+# Excel Backup File
+*.xlk

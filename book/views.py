@@ -21,6 +21,12 @@ from datetime import timedelta
 
 from book import constants
 
+# excel libraries
+from openpyxl import Workbook
+
+from django.shortcuts import redirect
+
+
 class CopyListView(LoginRequiredMixin, generic.ListView, RatelimitMixin):
     ratelimit_key = 'ip'
     ratelimit_rate = '2/m'
@@ -206,17 +212,18 @@ class Return_Book(LoginRequiredMixin,generic.FormView,RatelimitMixin):
     form_class = book_forms.Return_Book_Form
 
     def form_valid(self, form):
-        username = form.cleaned_data['username']
         book_id = form.cleaned_data['copy_id']
 
-        loan = book_models.Loan.objects.get(book__book_id=book_id , person__username__exact=username)
+        loan = book_models.Loan.objects.filter(book__book__copy__id=book_id)
+
         if loan:
-            loan.due_back=date.today()
-            loan.book.LOAN_STATUS = 'a'
+            loan[0].due_back=date.today()
+            loan[0].book.LOAN_STATUS = 'a'
+            loan[0].save()
             context = 'operation succsefully done!'
         else:
             context = 'loan not found!  '
-        return render(self.request, 'book/template.html', context)
+        return render(self.request, 'book/template.html', {'header':context})
 
 
 class Delete_Reserve_View(LoginRequiredMixin,generic.View,RatelimitMixin):
@@ -260,7 +267,7 @@ class User_Loan_List_View(LoginRequiredMixin,generic.TemplateView,RatelimitMixin
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        loan_list = book_models.Loan.objects.filter(person=user)
+        loan_list = book_models.Loan.objects.filter(person=user,due_back__isnull=True)
         context['loan_list'] = loan_list
         return context
 
@@ -291,3 +298,60 @@ class Loan_Extend_View(LoginRequiredMixin,generic.View,RatelimitMixin):
             # temp_loan.delete()
 
         return HttpResponseRedirect(reverse_lazy('book:user_loans_list'))
+
+
+class Export_Excel_View(LoginRequiredMixin,generic.View,RatelimitMixin):
+    def get(self,request):
+        wb = Workbook()
+
+        book_sheet = wb.active
+        book_sheet.title = 'book'
+        # copy_sheet = wb.active
+        # copy_sheet.title = 'copy'
+        #
+        # copy_sheet['A1'] = 'name'
+        # copy_sheet['B1'] = 'borrowers'
+        # copy_sheet['C1'] = 'reservers'
+        # copy_sheet['D1'] = 'loan status'
+        #
+        # copy_list = book_models.Copy.objects.all()
+        # for copy in copy_list:
+        #     copy_sheet.append(
+        #         [
+        #             copy.book.name,
+        #             copy.book.id,
+        #             copy.book.subject,
+        #             copy.get_status_display(),
+        #         ]
+        #     )
+
+
+        book_sheet['A1'] = 'name'
+        book_sheet['B1'] = 'publish year'
+        book_sheet['C1'] = 'ISBN'
+        book_sheet['D1'] = 'subject'
+        book_sheet['E1'] = 'translators'
+        book_sheet['F1'] = 'authors'
+        book_sheet['G1'] = 'publishers'
+        book_sheet['H1'] = 'count'
+
+        # book_list = book_models.Book.objects.all()
+        book_list = book_models.Book.objects.annotate(num_books=Count('copy'))
+        for book in book_list:
+            book_sheet.append(
+                [
+                    book.name,
+                    book.publish_year,
+                    book.ISBN,
+                    book.get_subject_display(),
+                    ', '.join(translator.name for translator in book.translators.all()),
+                    ', '.join(author.name for author in book.authors.all()),
+                    book.publishers.name,
+                    book.num_books,
+                ]
+            )
+
+        wb.save('export.xlsx')
+        return redirect('/')
+
+
