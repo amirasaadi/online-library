@@ -17,8 +17,7 @@
             <p><a href="{% url 'book:user_loans_list' %}">My Loans</a></p>
             <hr>
           {% if user.is_superuser %}
-              <p><a href="{% url 'book:reserve_to_return_back' %}">Reserve to return back</a></p>
-              <p><a href="{% url 'book:reserve_to_loan' %}">Reserve to loan</a></p>
+              <p><a href="{% url 'users:best_students' %}">Best Students</a></p>
               <p><a href="{% url 'book:export_excel' %}">Export to Excel</a></p>
               <p><a href="{% url 'book:return_book' %}">Return Book</a></p>
               <p><a href="{% url 'book:list_loan' %}">list of loans</a></p>

@@ -29,23 +29,26 @@ from django.shortcuts import redirect
 # paginator
 from django.core.paginator import Paginator
 
+#penalty
+from users.models import Profile
 
-class CopyListView(LoginRequiredMixin, generic.ListView, RatelimitMixin):
+class CopyListView(LoginRequiredMixin ,RatelimitMixin, generic.ListView):
     ratelimit_key = 'ip'
-    ratelimit_rate = '2/m'
+    ratelimit_rate = '100/m'
     ratelimit_block = True
+
 
     model = book_models.Copy
 
 
-class CopyDetailView(LoginRequiredMixin, generic.DetailView, RatelimitMixin):
+class CopyDetailView(LoginRequiredMixin,RatelimitMixin ,generic.DetailView ):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
     model = book_models.Copy
 
 
-class CopyReserveView(LoginRequiredMixin, generic.View, RatelimitMixin):
+class CopyReserveView(LoginRequiredMixin,  RatelimitMixin,generic.View):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -57,7 +60,7 @@ class CopyReserveView(LoginRequiredMixin, generic.View, RatelimitMixin):
         return HttpResponse('successfully reserved for you.<br><a href="/">Home</a>')
 
 
-class CopyLoanView(LoginRequiredMixin, generic.View, RatelimitMixin):
+class CopyLoanView(LoginRequiredMixin, RatelimitMixin, generic.View):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -84,14 +87,14 @@ class CopyLoanView(LoginRequiredMixin, generic.View, RatelimitMixin):
 
 
 
-class LoanListView(LoginRequiredMixin, generic.ListView, RatelimitMixin):
+class LoanListView(LoginRequiredMixin,  RatelimitMixin,generic.ListView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
     model = book_models.Loan
 
 
-class Books_Loned_Between_Two_Times_View(LoginRequiredMixin, generic.FormView, RatelimitMixin):
+class Books_Loned_Between_Two_Times_View(LoginRequiredMixin, RatelimitMixin, generic.FormView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -106,7 +109,7 @@ class Books_Loned_Between_Two_Times_View(LoginRequiredMixin, generic.FormView, R
         return render(self.request, 'book/template.html', context=context)
 
 
-class Students_Who_Do_Not_Loan_Any(LoginRequiredMixin, generic.View, RatelimitMixin):
+class Students_Who_Do_Not_Loan_Any(LoginRequiredMixin, RatelimitMixin, generic.View):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -116,7 +119,7 @@ class Students_Who_Do_Not_Loan_Any(LoginRequiredMixin, generic.View, RatelimitMi
         return render(request, 'book/students_who_do_not_loan_any.html', context=context)
 
 
-class Authors_Loaned_By_Student(LoginRequiredMixin, generic.FormView, RatelimitMixin):
+class Authors_Loaned_By_Student(LoginRequiredMixin,RatelimitMixin, generic.FormView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -131,7 +134,7 @@ class Authors_Loaned_By_Student(LoginRequiredMixin, generic.FormView, RatelimitM
         return render(self.request, 'book/template.html', context=context)
 
 
-class HomePageView( generic.TemplateView, RatelimitMixin):
+class HomePageView( RatelimitMixin ,generic.TemplateView):
 
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
@@ -150,7 +153,7 @@ class HomePageView( generic.TemplateView, RatelimitMixin):
         return context
 
 
-class Loan_Near_Due_Date(LoginRequiredMixin,generic.TemplateView,RatelimitMixin):
+class Loan_Near_Due_Date(LoginRequiredMixin,RatelimitMixin,generic.TemplateView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -161,7 +164,7 @@ class Loan_Near_Due_Date(LoginRequiredMixin,generic.TemplateView,RatelimitMixin)
         return context
 
 
-class Students_Who_Borrow_Books_In_Special_Publish_Year(LoginRequiredMixin,generic.FormView,RatelimitMixin):
+class Students_Who_Borrow_Books_In_Special_Publish_Year(LoginRequiredMixin,RatelimitMixin,generic.FormView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -176,7 +179,7 @@ class Students_Who_Borrow_Books_In_Special_Publish_Year(LoginRequiredMixin,gener
         return render(self.request, 'book/template.html', context=context)
 
 
-class List_Of_Best_Students(LoginRequiredMixin,generic.TemplateView,RatelimitMixin):
+class List_Of_Best_Students(LoginRequiredMixin,RatelimitMixin,generic.TemplateView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -189,7 +192,7 @@ class List_Of_Best_Students(LoginRequiredMixin,generic.TemplateView,RatelimitMix
         return context
 
 
-class Subject_View(LoginRequiredMixin,generic.View,RatelimitMixin):
+class Subject_View(LoginRequiredMixin,RatelimitMixin,generic.View):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -215,7 +218,7 @@ class Subject_View(LoginRequiredMixin,generic.View,RatelimitMixin):
         return render(self.request,template_name='book/book_subject.html',context={'context':context})
 
 
-class Return_Book(LoginRequiredMixin,generic.FormView,RatelimitMixin):
+class Return_Book(LoginRequiredMixin,RatelimitMixin,generic.FormView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -232,13 +235,21 @@ class Return_Book(LoginRequiredMixin,generic.FormView,RatelimitMixin):
             loan[0].due_back=date.today()
             loan[0].book.LOAN_STATUS = 'a'
             loan[0].save()
+            delta = loan[0].due_back - loan[0].date_due
+            if delta>constants.LOAN_TIME:
+                penalty = delta - constants.LOAN_TIME
+            else:
+                penalty = 0
+            last_penalty = Profile.objects.get(user=loan[0].person).penalty
+            penalty += last_penalty
+            Profile.objects.filter(user=loan[0].person).update(penalty=penalty)
             context = 'operation succsefully done!'
         else:
             context = 'loan not found!  '
         return render(self.request, 'book/template.html', {'header':context})
 
 
-class Delete_Reserve_View(LoginRequiredMixin,generic.View,RatelimitMixin):
+class Delete_Reserve_View(LoginRequiredMixin,RatelimitMixin,generic.View):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -250,7 +261,7 @@ class Delete_Reserve_View(LoginRequiredMixin,generic.View,RatelimitMixin):
         return HttpResponseRedirect(reverse_lazy('book:list_reserve'))
 
 
-class Reserve_List_View(LoginRequiredMixin,generic.TemplateView,RatelimitMixin):
+class Reserve_List_View(LoginRequiredMixin,RatelimitMixin,generic.TemplateView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -263,14 +274,17 @@ class Reserve_List_View(LoginRequiredMixin,generic.TemplateView,RatelimitMixin):
         return context
 
 
-class Reserve_Detail_View(LoginRequiredMixin,generic.TemplateView,RatelimitMixin):
+class Reserve_Detail_View(LoginRequiredMixin,RatelimitMixin,generic.TemplateView):
+    ratelimit_key = 'ip'
+    ratelimit_rate = '100/m'
+    ratelimit_block = True
 
     def get(self, request,pk):
         reserved = book_models.Reservation.objects.get(pk=pk)
         return render(request, 'book/reservestatus_detail.html', context={'reservestatus':reserved})
 
 
-class User_Loan_List_View(LoginRequiredMixin,generic.TemplateView,RatelimitMixin):
+class User_Loan_List_View(LoginRequiredMixin,RatelimitMixin,generic.TemplateView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -284,7 +298,10 @@ class User_Loan_List_View(LoginRequiredMixin,generic.TemplateView,RatelimitMixin
         return context
 
 
-class Loan_Detail_View(LoginRequiredMixin,generic.TemplateView,RatelimitMixin):
+class Loan_Detail_View(LoginRequiredMixin,RatelimitMixin,generic.TemplateView):
+    ratelimit_key = 'ip'
+    ratelimit_rate = '100/m'
+    ratelimit_block = True
     def get(self, request,pk):
         loaned = book_models.Loan.objects.get(pk=pk)
         return render(
@@ -294,7 +311,10 @@ class Loan_Detail_View(LoginRequiredMixin,generic.TemplateView,RatelimitMixin):
         )
 
 
-class Loan_Extend_View(LoginRequiredMixin,generic.View,RatelimitMixin):
+class Loan_Extend_View(LoginRequiredMixin,RatelimitMixin,generic.View):
+    ratelimit_key = 'ip'
+    ratelimit_rate = '100/m'
+    ratelimit_block = True
     def get(self,request,pk):
         loan = book_models.Loan.objects.get(pk=pk)
         if loan.person== self.request.user:
@@ -312,7 +332,10 @@ class Loan_Extend_View(LoginRequiredMixin,generic.View,RatelimitMixin):
         return HttpResponseRedirect(reverse_lazy('book:user_loans_list'))
 
 
-class Export_Excel_View(LoginRequiredMixin,generic.View,RatelimitMixin):
+class Export_Excel_View(LoginRequiredMixin,RatelimitMixin,generic.View):
+    ratelimit_key = 'ip'
+    ratelimit_rate = '100/m'
+    ratelimit_block = True
     def get(self,request):
         wb = Workbook()
 
@@ -367,9 +390,3 @@ class Export_Excel_View(LoginRequiredMixin,generic.View,RatelimitMixin):
         return redirect('/')
 
 
-class Reserve_To_Return_Back(LoginRequiredMixin,generic.View,RatelimitMixin):
-    pass
-
-
-class Reserve_To_Loan(LoginRequiredMixin,generic.View,RatelimitMixin):
-    pass

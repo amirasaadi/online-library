@@ -11,8 +11,16 @@ from django.shortcuts import redirect,render
 
 # ip blocking
 from ratelimit.mixins import RatelimitMixin
+from ratelimit.decorators import ratelimit
 
-class SignUp(generic.CreateView,RatelimitMixin):
+#change password
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
+from users import models as user_models
+
+class SignUp(RatelimitMixin,generic.CreateView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
@@ -21,41 +29,14 @@ class SignUp(generic.CreateView,RatelimitMixin):
     template_name = 'signup.html'
 
 
-class UserDetailView(LoginRequiredMixin, generic.TemplateView,RatelimitMixin):
+class UserDetailView(LoginRequiredMixin,RatelimitMixin, generic.TemplateView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
     template_name = 'users/users_detail.html'
 
 
-# class UserUpdateView(LoginRequiredMixin, generic.UpdateView,RatelimitMixin):
-#     ratelimit_key = 'ip'
-#     ratelimit_rate = '100/m'
-#     ratelimit_block = True
-#     fields = '__all__'
-#     model = user_models.User
-#     # fields = ('','')
-
-
-# def edit_profile(request):
-#     if request.method == 'POST':
-#         form = Edit_Profile_Form(request.POST,instance=request.user)
-#
-#         if form.is_valid():
-#             form.save()
-#             return redirect('/')
-#
-#     else:
-#         form=Edit_Profile_Form(instance=request.user)
-#         args = {'form':form}
-#         return render(request,'users/users_form.html',args)
-
-
-# def edit_profile_view(request):
-#     form = Edit_Profile_Form()
-#     return render(request,'users/users_form.html',{'form':form})
-
-
+@ratelimit(key='ip', rate='100/m', block=True)
 @login_required()
 def edit_profile_view(request):
     if request.method=='POST':
@@ -74,13 +55,7 @@ def edit_profile_view(request):
     }
     return render(request,'users/users_form.html',context)
 
-
-
-from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
-
-
+@ratelimit(key='ip', rate='100/m', block=True)
 @login_required()
 def change_password(request):
     if request.method == 'POST':
@@ -98,3 +73,12 @@ def change_password(request):
     return render(request, 'users/change_password.html', {
         'form': form
     })
+
+
+class Best_Stuednts_View(LoginRequiredMixin,RatelimitMixin,generic.View):
+    ratelimit_key = 'ip'
+    ratelimit_rate = '100/m'
+    ratelimit_block = True
+    def get(self,request):
+        test = user_models.Profile()
+        return render(self.request,'users/best.html',{'students':test.best_students()})

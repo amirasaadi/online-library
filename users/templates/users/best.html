@@ -1,0 +1,17 @@
+{% extends 'users/users_base.html'%}
+
+{% block content_users %}
+
+  <h1>
+    Best users
+  </h1>
+    <ol>
+        {% for student in students %}
+            <li>
+                {{ student.user.username }}, {{ student.score }}
+            </li>
+        {% endfor %}
+    </ol>
+
+
+{% endblock content_users%}
