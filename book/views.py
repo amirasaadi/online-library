@@ -32,11 +32,13 @@ from django.core.paginator import Paginator
 #penalty
 from users.models import Profile
 
+#translations
+from django.utils.translation import gettext as _
+
 class CopyListView(LoginRequiredMixin ,RatelimitMixin, generic.ListView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
-
 
     model = book_models.Copy
 
@@ -45,6 +47,7 @@ class CopyDetailView(LoginRequiredMixin,RatelimitMixin ,generic.DetailView ):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
     ratelimit_block = True
+
     model = book_models.Copy
 
 
@@ -57,7 +60,8 @@ class CopyReserveView(LoginRequiredMixin,  RatelimitMixin,generic.View):
         book = book_models.Copy.objects.get(pk=pk)
         book_models.Reservation(person=request.user, book=book).save()
         book.LOAN_STATUS = 'r'
-        return HttpResponse('successfully reserved for you.<br><a href="/">Home</a>')
+        message = _('successfully reserved for you.')
+        return render(request,'book/template.html',{'header':message})
 
 
 class CopyLoanView(LoginRequiredMixin, RatelimitMixin, generic.View):
@@ -75,11 +79,12 @@ class CopyLoanView(LoginRequiredMixin, RatelimitMixin, generic.View):
                 book_models.Loan(person=request.user, book=book).save()
                 #delete object
                 reservers.delete()
-                return HttpResponse('Go and get your book.<br><a href="/">Home</a>')
-
+                message = _('Go and get your book.')
+                return render(request, 'book/template.html', {'header': message})
 
             else:
-                return HttpResponse('Sorry this book is reserved. try another time.<br><a href="/">Home</a>')
+                message = _('Sorry this book is reserved. try another time.')
+                return render(request, 'book/template.html', {'header': message})
         else:
             book_models.Loan(person=request.user, book=book).save()
         book.LOAN_STATUS = 'o'
@@ -243,9 +248,9 @@ class Return_Book(LoginRequiredMixin,RatelimitMixin,generic.FormView):
             last_penalty = Profile.objects.get(user=loan[0].person).penalty
             penalty += last_penalty
             Profile.objects.filter(user=loan[0].person).update(penalty=penalty)
-            context = 'operation succsefully done!'
+            context = _('operation succsefully done!')
         else:
-            context = 'loan not found!  '
+            context = _('loan not found!')
         return render(self.request, 'book/template.html', {'header':context})
 
 
@@ -361,14 +366,14 @@ class Export_Excel_View(LoginRequiredMixin,RatelimitMixin,generic.View):
         #     )
 
 
-        book_sheet['A1'] = 'name'
-        book_sheet['B1'] = 'publish year'
-        book_sheet['C1'] = 'ISBN'
-        book_sheet['D1'] = 'subject'
-        book_sheet['E1'] = 'translators'
-        book_sheet['F1'] = 'authors'
-        book_sheet['G1'] = 'publishers'
-        book_sheet['H1'] = 'count'
+        book_sheet['A1'] = _('name')
+        book_sheet['B1'] = _('publish year')
+        book_sheet['C1'] = _('ISBN')
+        book_sheet['D1'] = _('subject')
+        book_sheet['E1'] = _('translators')
+        book_sheet['F1'] = _('authors')
+        book_sheet['G1'] = _('publishers')
+        book_sheet['H1'] = _('count')
 
         # book_list = book_models.Book.objects.all()
         book_list = book_models.Book.objects.annotate(num_books=Count('copy'))

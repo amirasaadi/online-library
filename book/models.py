@@ -8,6 +8,9 @@ from django.core.mail import send_mail
 from datetime import datetime,timedelta,date
 
 from book import constants
+# translating
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _lazy
 
 class Publisher(models.Model):
     name = models.CharField(max_length=300)
@@ -43,11 +46,11 @@ class Book(models.Model):
     MAGAZINE = 'M'
     BIOGRAPHU = 'B'
     subject_choices = (
-        (POEM, 'Poem'),
-        (STORY, 'Story'),
-        (HISTORY, 'History'),
-        (MAGAZINE, 'Magazine'),
-        (BIOGRAPHU,'Biography'),
+        (POEM, _('Poem')),
+        (STORY, _('Story')),
+        (HISTORY, _('History')),
+        (MAGAZINE, _('Magazine')),
+        (BIOGRAPHU,_('Biography')),
     )
     subject = models.CharField(
         max_length=1,
@@ -111,13 +114,13 @@ class Copy(models.Model):
 
 
     LOAN_STATUS = (
-        ('m', 'Maintenance'),
-        ('o', 'On loan'),
-        ('a', 'Available'),
-        ('r', 'Reserved'),
+        ('m', _('Maintenance')),
+        ('o', _('On loan')),
+        ('a', _('Available')),
+        ('r', _('Reserved')),
     )
 
-    status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text='Book availability')
+    status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text=_lazy('Book availability'))
 
 
     def __str__(self):
@@ -170,10 +173,10 @@ class Reservation(models.Model):
 def send_newbook_email(sender,instance,created,**kwargs):
     if created:
         messages = []
-        subject = 'New book aded to library'
-        message = """Hi dear students!
+        subject = _('New book aded to library')
+        message = _("""Hi dear students!
                     \n\tWe adad this book to our library, you can Borrow or Reserve it!
-                    \n\t{book}""".format(book=instance)
+                    \n\t{book}""").format(book=instance)
 
         emails = User.objects.values_list('email', flat=True)
         recipient_list = list(emails)
@@ -184,10 +187,10 @@ def send_newbook_email(sender,instance,created,**kwargs):
 
 @receiver(post_delete,sender=Book)
 def send_bookdeleted_email(sender,instance,**kwargs):
-    subject = 'Some book deleted'
-    message = """Hi dear students!
+    subject = _('Some book deleted')
+    message = _("""Hi dear students!
                 \n\tWe removed this book from our library, you can\'t Borrow or Reserve it any more!
-                \n\t{book}""".format(book=instance)
+                \n\t{book}""").format(book=instance)
 
     emails = User.objects.values_list('email', flat=True)
     recipient_list = list(emails)

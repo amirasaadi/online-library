@@ -1,6 +1,6 @@
 from django.contrib import admin
 from book import models
-
+from django.utils.translation import gettext as _
 
 admin.site.register(models.Author)
 admin.site.register(models.Translator)
@@ -30,7 +30,10 @@ def reserve_to_loan(modeladmin,request,queryset):
 
 
 class Reservations_Admin(admin.ModelAdmin):
-    list_display = ('person','book','date_reserved')
+    person = _('person')
+    book =  _('book')
+    date_reserved = _('date_reserved')
+    list_display = (person,book,date_reserved)
     actions = [reserve_to_loan,reserve_to_return_Back]
 
 admin.site.register(models.Reservation,Reservations_Admin)
