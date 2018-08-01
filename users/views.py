@@ -20,6 +20,9 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 from users import models as user_models
 
+#translating
+from django.utils.translation import gettext as _
+
 class SignUp(RatelimitMixin,generic.CreateView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
@@ -63,10 +66,10 @@ def change_password(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
+            messages.success(request, _('Your password was successfully updated!'))
             return redirect('users:detail_user')
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.error(request, _('Please correct the error below.'))
             return redirect('users:change_password')
     else:
         form = PasswordChangeForm(user=request.user)
