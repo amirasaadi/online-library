@@ -1,12 +1,12 @@
 {% extends 'book/book_base.html'%}
-
+{% load i18n %}
 {%block content_book%}
   <h1>
-    books loned between two times
+    {% trans "books loned between two times" %}
   </h1>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="search">
+    <input type="submit" value="{% trans "search" %}">
   </form>
 {%endblock content_book%}

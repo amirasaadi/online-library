@@ -1,8 +1,8 @@
 {% extends 'book/book_base.html'%}
-
+{% load i18n %}
 {%block content_book%}
   <h1>
-    authors loned by students
+    {% trans "authors loned by students" %}
   </h1>
   <form method="post">
     {% csrf_token %}

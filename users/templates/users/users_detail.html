@@ -1,15 +1,15 @@
 {% extends 'users/users_base.html'%}
-
+{% load i18n %}
 {% block content_users %}
 
   <h1>
-    User Profile
+    {% trans "User Profile"%}
   </h1>
 
-    <p>username   : {{ user.username }}</p>
-    <p>student id : {{ user.profile.student_id }}</p>
-    <p>email      : {{ user.email }}</p>
-    <p>profile image : <img src="{{ user.profile.image.url }}" width="240"></p>
+    <p>{% trans "username"%}   : {{ user.username }}</p>
+    <p>{% trans "student id"%} : {{ user.profile.student_id }}</p>
+    <p>{% trans "email"%}      : {{ user.email }}</p>
+    <p>{% trans "profile image"%} : <img src="{{ user.profile.image.url }}" width="240"></p>
 
-    <a href="{% url 'users:update_user' %}">Edit profile</a>
+    <a href="{% url 'users:update_user' %}">{% trans "Edit profile"%}</a>
 {% endblock content_users%}

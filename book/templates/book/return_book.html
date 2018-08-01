@@ -1,12 +1,12 @@
 {% extends 'book/book_base.html'%}
-
+{% load i18n %}
 {%block content_book%}
   <h1>
-    Return Book
+    {% trans "Return Book" %}
   </h1>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="return back">
+    <input type="submit" value="{% trans "return back" %}">
   </form>
 {%endblock content_book%}

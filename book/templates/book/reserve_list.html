@@ -1,8 +1,8 @@
 {% extends 'book/book_base.html'%}
-
+{% load i18n %}
 {%block content_book%}
   <h1>
-    Your reservations
+    {% trans "Your reservations" %}
   </h1>
     {% for reserve in rserve_list %}
         <a href="{% url 'book:detail_reserve' pk=reserve.id%}">{{ reserve.book.book.name }}</a>

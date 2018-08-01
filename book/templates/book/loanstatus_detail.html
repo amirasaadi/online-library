@@ -1,15 +1,15 @@
 {% extends 'book/book_base.html'%}
-
+{% load i18n %}
 {% block content_book %}
   <h1>
-    Book Loan status
+    {% trans "Book Loan status" %}
   </h1>
   <p>
-    due date : {{due}}
+    {% trans "due date" %} : {{due}}
       <br>
-    book : {{loanstatus.book.book.name}}
+    {% trans "book" %} : {{loanstatus.book.book.name}}
       <br>
-    Date you brrowed : {{loanstatus.date_due}}
+    {% trans "Date you brrowed" %} : {{loanstatus.date_due}}
   </p>
-    <p><a href="{% url 'book:loan_extend' pk=loanstatus.pk %}">Extend loan</a></p>
+    <p><a href="{% url 'book:loan_extend' pk=loanstatus.pk %}">{% trans "Extend loan" %}</a></p>
 {% endblock content_book%}

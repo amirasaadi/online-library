@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
-
-{% block title %}Home{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Home" %}{% endblock %}
 
 {% block content %}
 
     {% if user.is_authenticated %}
 
         <ol>
-          list of all books
+          {% trans "list of all books" %}
 
             {%for book in books%}
             <li>
               {{book.name}}
                 -
                 {% if book.num_books == 0 %}
-                    It's not avilable
+                    {% trans "It's not avilable" %}
                 {% else %}
                     {{ book.num_books }}
                 {% endif %}
@@ -26,30 +26,30 @@
            <div class="pagination">
                 <span class="step-links">
                     {% if books.has_previous %}
-                        <a href="?page=1">&laquo; first</a>
-                        <a href="?page={{ books.previous_page_number }}">previous</a>
+                        <a href="?page=1">{% trans "&laquo; first" %}</a>
+                        <a href="?page={{ books.previous_page_number }}">{% trans "previous" %}</a>
                     {% endif %}
 
                     <span class="current">
-                        Page {{ books.number }} of {{ books.paginator.num_pages }}.
+                        {% trans "Page" %} {{ books.number }} {% trans "of" %} {{ books.paginator.num_pages }}.
                     </span>
 
                     {% if books.has_next %}
-                        <a href="?page={{ books.next_page_number }}">next</a>
-                        <a href="?page={{ books.paginator.num_pages }}">last &raquo;</a>
+                        <a href="?page={{ books.next_page_number }}">{% trans "next" %}</a>
+                        <a href="?page={{ books.paginator.num_pages }}">{% trans "last &raquo;" %}</a>
                     {% endif %}
                 </span>
             </div>
 
 
             <hr>
-            Subjects:
+            {% trans "Subjects:" %}
             <ul>
-                <li><a href="{% url 'book:subject_book' subject='poem' %}">poem</a></li>
-                <li><a href="{% url 'book:subject_book' subject='story' %}">story</a></li>
-                <li><a href="{% url 'book:subject_book' subject='history' %}">history</a></li>
-                <li><a href="{% url 'book:subject_book' subject='magazine'%}">magazine</a></li>
-                <li><a href="{% url 'book:subject_book' subject='biography'%}">biography</a></li>
+                <li><a href="{% url 'book:subject_book' subject='poem' %}">{% trans "poem" %}</a></li>
+                <li><a href="{% url 'book:subject_book' subject='story' %}">{% trans "story" %}</a></li>
+                <li><a href="{% url 'book:subject_book' subject='history' %}">{% trans "history" %}</a></li>
+                <li><a href="{% url 'book:subject_book' subject='magazine'%}">{% trans "magazine" %}</a></li>
+                <li><a href="{% url 'book:subject_book' subject='biography'%}">{% trans "biography" %}</a></li>
             </ul>
     {% endif %}
 

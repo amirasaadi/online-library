@@ -1,6 +1,7 @@
 {% extends 'base.html'%}
+{% load i18n %}
 {% block content %}
-    <a href="{%url 'users:update_user'%}">Update user</a>
+    <a href="{%url 'users:update_user'%}">{% trans "Update user"%}</a>
     {% block content_users%}
 
     {% endblock content_users %}

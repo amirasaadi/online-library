@@ -1,8 +1,8 @@
 {% extends 'book/book_base.html'%}
-
+{% load i18n %}
 {%block content_book%}
   <h1>
-    students who do not loan any
+    {% trans "students who do not loan any" %}
   </h1>
     {% for student in students %}
         {{ student.username }}

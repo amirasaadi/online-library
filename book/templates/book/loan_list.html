@@ -1,7 +1,7 @@
 {% extends 'book/book_base.html'%}
-
+{% load i18n %}
 {% block content_book %}
-    <h1>List of all user loans</h1>
+    <h1>{% trans "List of all user loans" %}</h1>
   <ol>
     {%for loan in loan_list%}
     <li>

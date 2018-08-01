@@ -1,38 +1,39 @@
 <!DOCTYPE html>
+{% load i18n %}
 <html>
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+  <title>{% block title %}{% trans "Django Auth Tutorial" %}{% endblock %}</title>
 </head>
 <body>
   <main>
 
       {% if user.is_authenticated %}
-        Hi {{ user.username }}!
+        {% blocktrans %}Hi {{ user.username }}!{% endblocktrans %}
           <br>
-            <p><a href="{% url 'users:detail_user' %}">profile</a></p>
-            <p><a href="{% url 'book:list_copy' %}">books</a></p>
-            <p><a href="{% url 'logout' %}">logout</a></p>
-            <p><a href="{% url 'book:list_reserve' %}">My reservations</a></p>
-            <p><a href="{% url 'book:user_loans_list' %}">My Loans</a></p>
+            <p><a href="{% url 'users:detail_user' %}">{% trans "profile" %}</a></p>
+            <p><a href="{% url 'book:list_copy' %}">{% trans "books" %}</a></p>
+            <p><a href="{% url 'logout' %}">{% trans "logout" %}</a></p>
+            <p><a href="{% url 'book:list_reserve' %}">{% trans "My reservations" %}</a></p>
+            <p><a href="{% url 'book:user_loans_list' %}">{% trans "My Loans" %}</a></p>
             <hr>
           {% if user.is_superuser %}
-              <p><a href="{% url 'users:best_students' %}">Best Students</a></p>
-              <p><a href="{% url 'book:export_excel' %}">Export to Excel</a></p>
-              <p><a href="{% url 'book:return_book' %}">Return Book</a></p>
-              <p><a href="{% url 'book:list_loan' %}">list of loans</a></p>
-              <p><a href="{% url 'book:books_loned_between_two_times' %}">books loned between two times</a></p>
-              <p><a href="{% url 'book:students_who_do_not_loan_any' %}">students who do not loan any</a></p>
-              <p><a href="{% url 'book:authors_loaned_by_student' %}">authors loaned by student</a></p>
-              <p><a href="{% url 'book:loan_near_due_date' %}">loan near due date</a></p>
-              <p><a href="{% url 'book:students_who_borrow_books_in_special_publish_year' %}">students who borrow books in special publish year</a></p>
+              <p><a href="{% url 'users:best_students' %}">{% trans "Best Students" %}</a></p>
+              <p><a href="{% url 'book:export_excel' %}">{% trans "Export to Excel" %}</a></p>
+              <p><a href="{% url 'book:return_book' %}">{% trans "Return Book" %}</a></p>
+              <p><a href="{% url 'book:list_loan' %}">{% trans "list of loans" %}</a></p>
+              <p><a href="{% url 'book:books_loned_between_two_times' %}">{% trans "books loned between two times" %}</a></p>
+              <p><a href="{% url 'book:students_who_do_not_loan_any' %}">{% trans "students who do not loan any" %}</a></p>
+              <p><a href="{% url 'book:authors_loaned_by_student' %}">{% trans "authors loaned by student" %}</a></p>
+              <p><a href="{% url 'book:loan_near_due_date' %}">{% trans "loan near due date" %}</a></p>
+              <p><a href="{% url 'book:students_who_borrow_books_in_special_publish_year' %}">{% trans "students who borrow books in special publish year" %}</a></p>
               <hr>
           {% endif %}
 
       {% else %}
-          <p>You are not logged in</p>
-          <a href="{% url 'login' %}">login</a> |
-          <a href="{% url 'users:signup' %}">signup</a>
+          <p>{% trans "You are not logged in" %}</p>
+          <a href="{% url 'login' %}">{% trans "login" %}</a> |
+          <a href="{% url 'users:signup' %}">{% trans "signup" %}</a>
           <hr>
       {% endif %}
 

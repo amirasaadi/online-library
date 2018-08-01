@@ -1,15 +1,15 @@
 {% extends 'book/book_base.html'%}
-
+{% load i18n %}
 {% block content_book %}
   <h1>
-    Book reserve status
+    {% trans "Book reserve status" %}
   </h1>
   <p>
-    name : {{reservestatus.person}}
+    {% trans "name" %} : {{reservestatus.person}}
       <br>
-    book : {{reservestatus.book.book.name}}
+    {% trans "book" %} : {{reservestatus.book.book.name}}
       <br>
-    Date : {{reservestatus.date_reserved}}
+    {% trans "Date" %} : {{reservestatus.date_reserved}}
   </p>
-    <p><a href="{% url 'book:delete_reserve' pk=reservestatus.pk %}">Delete reserve</a></p>
+    <p><a href="{% url 'book:delete_reserve' pk=reservestatus.pk %}">{% trans "Delete reserve" %}</a></p>
 {% endblock content_book%}
