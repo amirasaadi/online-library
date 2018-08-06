@@ -127,3 +127,6 @@ sent_emails/
 
 # Excel Backup File
 *.xlk
+
+#dolphin
+.directory
