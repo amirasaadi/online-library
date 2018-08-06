@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from book import views
 
 app_name = 'book'
@@ -60,4 +60,7 @@ urlpatterns = [
 
     #excel output
     path('export/',views.Export_Excel_View.as_view(),name='export_excel'),
+
+    #api s
+    path('api/',include('book.api.urls' , namespace='api')),
 ]

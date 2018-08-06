@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+
     'users',
     'book',
 ]
@@ -108,6 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'fa-IR'
 
 TIME_ZONE = 'UTC'
 
@@ -117,6 +121,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOCALE_PATH = [
+    os.path.join(BASE_DIR,'locale')
+]
+
+LANGUAGES =[
+    ('en','English'),
+    ('fa-IR','Farsi'),
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

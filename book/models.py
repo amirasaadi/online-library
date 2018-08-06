@@ -11,7 +11,7 @@ from book import constants
 # translating
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy as _lazy
-
+from django.utils.text import format_lazy
 class Publisher(models.Model):
     name = models.CharField(max_length=300)
 
@@ -172,12 +172,12 @@ class Reservation(models.Model):
 @receiver(post_save, sender=Book)
 def send_newbook_email(sender,instance,created,**kwargs):
     if created:
-        messages = []
+
         subject = _('New book aded to library')
         message = _("""Hi dear students!
                     \n\tWe adad this book to our library, you can Borrow or Reserve it!
-                    \n\t{book}""").format(book=instance)
-
+                    \n\t""")
+        message += instance
         emails = User.objects.values_list('email', flat=True)
         recipient_list = list(emails)
 
@@ -190,8 +190,8 @@ def send_bookdeleted_email(sender,instance,**kwargs):
     subject = _('Some book deleted')
     message = _("""Hi dear students!
                 \n\tWe removed this book from our library, you can\'t Borrow or Reserve it any more!
-                \n\t{book}""").format(book=instance)
-
+                \n\t""")
+    message+=instance
     emails = User.objects.values_list('email', flat=True)
     recipient_list = list(emails)
 

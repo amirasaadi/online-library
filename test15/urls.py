@@ -9,6 +9,7 @@ from book import views as book_view
 
 urlpatterns = [
     # path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('i18n/', include('django.conf.urls.i18n')),
     path('',book_view.HomePageView.as_view(),name='home'),
 
     path('admin/', admin.site.urls),
@@ -17,5 +18,7 @@ urlpatterns = [
     path('users/', include('django.contrib.auth.urls')),
 
     path('book/',include('book.urls',namespace='book')),
+
+    path('api/',include('book.api.urls' , namespace='api'))
 
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

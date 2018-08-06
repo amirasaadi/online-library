@@ -1,0 +1,445 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"Project-Id-Version: test15v2\n"
+"Language: fa\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+
+#: book/admin.py:33
+msgid "person"
+msgstr "فرد"
+
+#: book/admin.py:34 book/templates/book/loanstatus_detail.html:10
+#: book/templates/book/reservestatus_detail.html:10
+msgid "book"
+msgstr "کتاب"
+
+#: book/admin.py:35
+msgid "date_reserved"
+msgstr "تاریخ رزرو"
+
+#: book/models.py:49
+msgid "Poem"
+msgstr "شعر"
+
+#: book/models.py:50
+msgid "Story"
+msgstr "داستان"
+
+#: book/models.py:51
+msgid "History"
+msgstr "تاریخ"
+
+#: book/models.py:52
+msgid "Magazine"
+msgstr "مجله"
+
+#: book/models.py:53
+msgid "Biography"
+msgstr "زندگی‌نامه"
+
+#: book/models.py:117
+msgid "Maintenance"
+msgstr "نگهداری"
+
+#: book/models.py:118
+msgid "On loan"
+msgstr "در امانت"
+
+#: book/models.py:119
+msgid "Available"
+msgstr "در دسترس"
+
+#: book/models.py:120
+msgid "Reserved"
+msgstr "رزرو شده"
+
+#: book/models.py:176
+msgid "New book aded to library"
+msgstr "کتاب جدید به کتابخانه اضافه شده است"
+
+#: book/models.py:177
+msgid ""
+"Hi dear students!\n"
+"                    \n"
+"\tWe adad this book to our library, you can Borrow or Reserve it!\n"
+"                    \n"
+"\t"
+msgstr ""
+"سلام دانشجویان عزیز!\n"
+"                    \n"
+"ما این کتاب را به کتابخانه مان اضافه کرده‌ایم می‌توانید به امانت ببرید و یا رزرو کنید!\n"
+"                    "
+
+#: book/models.py:190
+msgid "Some book deleted"
+msgstr "بعضی کتاب حذف شد"
+
+#: book/models.py:191
+msgid ""
+"Hi dear students!\n"
+"                \n"
+"\tWe removed this book from our library, you can't Borrow or Reserve it any more!\n"
+"                \n"
+"\t"
+msgstr ""
+"سلام دانشجویان عزیز!\n"
+"                \n"
+"این کتاب را از کتابخانه ما حذف کردیم، شما نمی‌توانید آن را قرض بگیرید یا آن را رزرو کنید!\n"
+"             "
+
+#: book/templates/book/authors_loaned_by_student.html:5
+msgid "authors loned by students"
+msgstr "لیست نویسنده‌هایی که کتاب آن‌ها توسط یک دانشجوی خاص امانت گرفته شده است"
+
+#: book/templates/book/book_subject.html:14 templates/home.html:29
+msgid "&laquo; first"
+msgstr "& laquo؛ اولین"
+
+#: book/templates/book/book_subject.html:15 templates/home.html:30
+msgid "previous"
+msgstr "قبلی"
+
+#: book/templates/book/book_subject.html:19 templates/home.html:34
+msgid "Page"
+msgstr "صفحه"
+
+#: book/templates/book/book_subject.html:19 templates/home.html:34
+msgid "of"
+msgstr "از"
+
+#: book/templates/book/book_subject.html:23 templates/home.html:38
+msgid "next"
+msgstr "بعد"
+
+#: book/templates/book/book_subject.html:24 templates/home.html:39
+msgid "last &raquo;"
+msgstr "آخرین & raquo؛"
+
+#: book/templates/book/books_loned_between_two_times.html:5
+#: templates/base.html:25
+msgid "books loned between two times"
+msgstr "کتاب‌های تحویل داده شده در یک بازه‌ی زمانی"
+
+#: book/templates/book/books_loned_between_two_times.html:10
+#: book/templates/book/students_who_borrow_books_in_special_publish_year.html:10
+msgid "search"
+msgstr "جستجو کردن"
+
+#: book/templates/book/copy_detail.html:5
+msgid "book details"
+msgstr "جزئیات کتاب"
+
+#: book/templates/book/copy_detail.html:10
+msgid "Authors:"
+msgstr "نویسندگان:"
+
+#: book/templates/book/copy_detail.html:14
+msgid "Translators:"
+msgstr "مترجمان:"
+
+#: book/templates/book/copy_detail.html:18
+msgid "Publisher:"
+msgstr "ناشران:"
+
+#: book/templates/book/copy_detail.html:23
+msgid "Borrow"
+msgstr "امانت گرفتن"
+
+#: book/templates/book/copy_detail.html:24
+msgid "Reserve"
+msgstr "رزرو"
+
+#: book/templates/book/loan_list.html:4
+msgid "List of all user loans"
+msgstr "لیست کتاب‌هایی که باید توسط مسوول تحویل داده شود"
+
+#: book/templates/book/loanstatus_detail.html:5
+msgid "Book Loan status"
+msgstr "وضعیت امانت کتاب"
+
+#: book/templates/book/loanstatus_detail.html:8
+msgid "due date"
+msgstr "تاریخ تحویل"
+
+#: book/templates/book/loanstatus_detail.html:12
+msgid "Date you brrowed"
+msgstr "تاریخ به امانت گرفته شده"
+
+#: book/templates/book/loanstatus_detail.html:14
+msgid "Extend loan"
+msgstr "تمدید کتاب"
+
+#: book/templates/book/reserve_confirm_delete.html:5
+msgid "Delete %(reservation)s ?"
+msgstr "حذف٪ (رزرو) s"
+
+#: book/templates/book/reserve_confirm_delete.html:10
+msgid "Delete"
+msgstr "حذف"
+
+#: book/templates/book/reserve_confirm_delete.html:11
+msgid "Cancel"
+msgstr "لغو"
+
+#: book/templates/book/reserve_list.html:5
+msgid "Your reservations"
+msgstr "رزرو های شما"
+
+#: book/templates/book/reservestatus_detail.html:5
+msgid "Book reserve status"
+msgstr "وضعیت رزرو کتاب"
+
+#: book/templates/book/reservestatus_detail.html:8 book/views.py:369
+msgid "name"
+msgstr "نام"
+
+#: book/templates/book/reservestatus_detail.html:12
+msgid "Date"
+msgstr "تاریخ"
+
+#: book/templates/book/reservestatus_detail.html:14
+msgid "Delete reserve"
+msgstr "حذف رزرو"
+
+#: book/templates/book/return_book.html:5 templates/base.html:23
+msgid "Return Book"
+msgstr "بازگشت کتاب"
+
+#: book/templates/book/return_book.html:10
+msgid "return back"
+msgstr "برگشت کتاب"
+
+#: book/templates/book/students_who_borrow_books_in_special_publish_year.html:5
+#: templates/base.html:29
+msgid "students who borrow books in special publish year"
+msgstr "دانشجویانی که کتاب‌های چاپ شده در یک سال خاص را به امانت گرفته اند"
+
+#: book/templates/book/students_who_do_not_loan_any.html:5
+#: templates/base.html:26
+msgid "students who do not loan any"
+msgstr "لیست تمامی دانشجویانی که کتاب قرض نگرفته‌اند"
+
+#: book/templates/book/user_loan_list.html:5
+msgid "Your loans"
+msgstr "امنت های من"
+
+#: book/views.py:63
+msgid "successfully reserved for you."
+msgstr "با موفقیت برای شما رزرو شد"
+
+#: book/views.py:82
+msgid "Go and get your book."
+msgstr "کتاب را از کتاب‌دار تحویل بگیرید"
+
+#: book/views.py:86
+msgid "Sorry this book is reserved. try another time."
+msgstr "متاسفم این کتاب رزرو شده است سعی کنید یک بار دیگر."
+
+#: book/views.py:251
+msgid "operation succsefully done!"
+msgstr "عملیات با موفقیت انجام شد!"
+
+#: book/views.py:253
+msgid "loan not found!"
+msgstr "امانت یافت نشد!"
+
+#: book/views.py:370
+msgid "publish year"
+msgstr "سال انتشار"
+
+#: book/views.py:371
+msgid "ISBN"
+msgstr "ISBN"
+
+#: book/views.py:372
+msgid "subject"
+msgstr "موضوع"
+
+#: book/views.py:373
+msgid "translators"
+msgstr "مترجمان"
+
+#: book/views.py:374
+msgid "authors"
+msgstr "نویسندگان"
+
+#: book/views.py:375
+msgid "publishers"
+msgstr "ناشران"
+
+#: book/views.py:376
+msgid "count"
+msgstr "تعداد"
+
+#: templates/base.html:6
+msgid "Django Auth Tutorial"
+msgstr "کتابخانه دانشگاه"
+
+#: templates/base.html:12
+msgid "Hi %(user.username)s!"
+msgstr "سلام٪ (user.username) s!"
+
+#: templates/base.html:14
+msgid "profile"
+msgstr "مشخصات"
+
+#: templates/base.html:15
+msgid "books"
+msgstr "کتاب ها"
+
+#: templates/base.html:16
+msgid "logout"
+msgstr "خروج"
+
+#: templates/base.html:17
+msgid "My reservations"
+msgstr "رزرو های من"
+
+#: templates/base.html:18
+msgid "My Loans"
+msgstr "امانت های من"
+
+#: templates/base.html:21
+msgid "Best Students"
+msgstr "بهترین دانشجویان"
+
+#: templates/base.html:22
+msgid "Export to Excel"
+msgstr "خروجی اکسل"
+
+#: templates/base.html:24
+msgid "list of loans"
+msgstr "فهرست امانات"
+
+#: templates/base.html:27
+msgid "authors loaned by student"
+msgstr "لیست نویسنده‌هایی که کتاب آن‌ها توسط یک دانشجوی خاص امانت گرفته شده است"
+
+#: templates/base.html:28
+msgid "loan near due date"
+msgstr " کتا‌ب‌هایی که مهلت امانت آن‌ها رو به پایان است"
+
+#: templates/base.html:34
+msgid "You are not logged in"
+msgstr "شما وارد نشده اید"
+
+#: templates/base.html:35
+msgid "login"
+msgstr "ورود"
+
+#: templates/base.html:36
+msgid "signup"
+msgstr "ثبت نام"
+
+#: templates/home.html:3
+msgid "Home"
+msgstr "خانه"
+
+#: templates/home.html:10
+msgid "list of all books"
+msgstr "فهرست همه کتابها"
+
+#: templates/home.html:17
+msgid "It's not avilable"
+msgstr "این قابل دسترسی نیست"
+
+#: templates/home.html:46
+msgid "Subjects:"
+msgstr "موضوع:"
+
+#: templates/home.html:48
+msgid "poem"
+msgstr "شعر"
+
+#: templates/home.html:49
+msgid "story"
+msgstr "داستان"
+
+#: templates/home.html:50
+msgid "history"
+msgstr "تاریخی"
+
+#: templates/home.html:51
+msgid "magazine"
+msgstr "مجله"
+
+#: templates/home.html:52
+msgid "biography"
+msgstr "زندگی‌نامه"
+
+#: templates/registration/login.html:3 templates/registration/login.html:6
+#: templates/registration/login.html:10
+msgid "Login"
+msgstr "ورود"
+
+#: templates/signup.html:3
+msgid "Sign Up"
+msgstr "ثبت نام"
+
+#: templates/signup.html:6 templates/signup.html:10
+msgid "Sign up"
+msgstr "ثبت نام"
+
+#: users/templates/users/best.html:6
+msgid "Best users"
+msgstr "بهترین کاربران"
+
+#: users/templates/users/change_password.html:5
+msgid "Change password"
+msgstr "تغییر رمز عبور"
+
+#: users/templates/users/change_password.html:10
+msgid "Save changes"
+msgstr "ذخیره تغییرات"
+
+#: users/templates/users/users_base.html:4
+#: users/templates/users/users_form.html:5
+msgid "Update user"
+msgstr "به‌روزرسانی کاربر"
+
+#: users/templates/users/users_detail.html:6
+msgid "User Profile"
+msgstr "مشخصات کاربر"
+
+#: users/templates/users/users_detail.html:9
+msgid "username"
+msgstr "نام کاربری"
+
+#: users/templates/users/users_detail.html:10
+msgid "student id"
+msgstr "شماره دانشجویی"
+
+#: users/templates/users/users_detail.html:11
+msgid "email"
+msgstr "پست الکترونیکی"
+
+#: users/templates/users/users_detail.html:12
+msgid "profile image"
+msgstr "تصویر"
+
+#: users/templates/users/users_detail.html:14
+msgid "Edit profile"
+msgstr "ویرایش مشخصات"
+
+#: users/templates/users/users_form.html:11
+msgid "submit"
+msgstr "ارسال"
+
+#: users/templates/users/users_form.html:13
+msgid "change password"
+msgstr "تغییر رمز عبور"
+
+#: users/views.py:69
+msgid "Your password was successfully updated!"
+msgstr "رمز عبور شما با موفقیت به روز شد!"
+
+#: users/views.py:72
+msgid "Please correct the error below."
+msgstr "لطفا خطا زیر را اصلاح کنید."
