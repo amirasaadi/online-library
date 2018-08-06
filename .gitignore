@@ -130,3 +130,9 @@ sent_emails/
 
 #dolphin
 .directory
+
+#zip
+*.zip
+
+#queryset
+quertytest.py
