@@ -73,7 +73,7 @@ class Book(models.Model):
         return self.name
 
     # test moving query views to here
-    def students_who_do_not_loan_any():
+    def students_who_do_not_loan_any(self):
         result = User.objects.exclude(id__in=Loan.objects.values('person__id'))
         context = {'students': result}
         return context
