@@ -1,0 +1,7 @@
+{% extends 'book/book_base.html'%}
+{% load i18n %}
+{%block content_book%}
+    <h1>{{ header }}</h1>
+    to finish reservation you must complete the payment from link below!
+    <a href="{% url 'users:detail_user' %}">go to Zarinpal</a>
+{%endblock content_book%}

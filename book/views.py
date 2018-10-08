@@ -35,6 +35,10 @@ from users.models import Profile
 #translations
 from django.utils.translation import gettext as _
 
+#payment
+from zeep import Client
+
+
 class CopyListView(LoginRequiredMixin ,RatelimitMixin, generic.ListView):
     ratelimit_key = 'ip'
     ratelimit_rate = '100/m'
@@ -60,7 +64,7 @@ class CopyReserveView(LoginRequiredMixin,  RatelimitMixin,generic.View):
         book = book_models.Copy.objects.get(pk=pk)
         book_models.Reservation(person=request.user, book=book).save()
         book.LOAN_STATUS = 'r'
-        message = _('successfully reserved for you.')
+        message = _('not successfully reserved for you .')
         return render(request,'book/template.html',{'header':message})
 
 
@@ -395,3 +399,32 @@ class Export_Excel_View(LoginRequiredMixin,RatelimitMixin,generic.View):
         return redirect('/')
 
 
+#payments
+
+#I request for merchant
+MERCHANT = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
+client = Client('https://www.zarinpal.com/pg/services/WebGate/wsdl')
+amount = 1000  # Toman / Required
+description = "payment for reserving your book"  # Required
+email = 'book@book.com'  # Optional
+mobile = '09123456789'  # Optional
+CallbackURL = 'http://localhost:8000/book/verify/' # Important: need to edit for realy server.
+
+def send_request(request):
+    result = client.service.PaymentRequest(MERCHANT, amount, description, email, mobile, CallbackURL)
+    if result.Status == 100:
+        return redirect('https://www.zarinpal.com/pg/StartPay/' + str(result.Authority))
+    else:
+        return HttpResponse('Error code: ' + str(result.Status))
+
+def verify(request):
+    if request.GET.get('Status') == 'OK':
+        result = client.service.PaymentVerification(MERCHANT, request.GET['Authority'], amount)
+        if result.Status == 100:
+            return HttpResponse('Transaction success.\nRefID: ' + str(result.RefID))
+        elif result.Status == 101:
+            return HttpResponse('Transaction submitted : ' + str(result.Status))
+        else:
+            return HttpResponse('Transaction failed.\nStatus: ' + str(result.Status))
+    else:
+        return HttpResponse('Transaction failed or canceled by user')

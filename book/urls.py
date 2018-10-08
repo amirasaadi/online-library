@@ -63,4 +63,8 @@ urlpatterns = [
 
     #api s
     path('api/',include('book.api.urls' , namespace='api')),
+
+    #payments
+    path('request/', views.send_request, name='request'),
+    path('verify/', views.verify , name='verify'),
 ]
