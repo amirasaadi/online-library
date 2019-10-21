@@ -12,7 +12,7 @@ django-debug-toolbar==1.9.1
 django-makemessages-xgettext==0.1.1
 django-ratelimit==1.1.0
 django-silk==3.0.1
-djangorestframework==3.8.2
+djangorestframework==3.9.1
 et-xmlfile==1.0.1
 Faker==0.8.8
 gprof2dot==2016.10.13
