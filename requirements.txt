@@ -28,7 +28,7 @@ openpyxl==2.5.4
 pathlib2==2.3.2
 Pillow==5.1.0
 pluggy==0.7.1
-py==1.5.4
+py==1.10.0
 pycodestyle==2.4.0
 Pygments==2.2.0
 pytest==3.7.1
