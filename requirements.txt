@@ -20,7 +20,7 @@ idna==2.7
 isodate==0.6.0
 jdcal==1.4
 Jinja2==2.10
-lxml==4.2.5
+lxml==4.9.1
 MarkupSafe==1.0
 mixer==6.0.1
 more-itertools==4.3.0
